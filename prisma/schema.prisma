@@ -40,6 +40,7 @@ model SubscriptionPackage {
   updatedAt DateTime @updatedAt
 
   userSubscriptions UserSubscription[]
+
   @@map("subscription_packages")
 }
 
@@ -53,7 +54,7 @@ model UserSubscription {
   endDate   DateTime?
   isActive  Boolean   @default(true)
 
-  user          User                 @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user    User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   package SubscriptionPackage @relation(fields: [packageId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId])
@@ -74,7 +75,7 @@ model Folder {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   parent   Folder?  @relation("FolderHierarchy", fields: [parentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   children Folder[] @relation("FolderHierarchy")
@@ -99,7 +100,7 @@ model File {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   folder Folder @relation(fields: [folderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([userId])
@@ -113,14 +114,15 @@ model User {
   email         String
   emailVerified Boolean   @default(false)
   image         String?
+  role          Role      @default(USER)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
 
-  folders           Folder[]
-  files             File[]
-  subscriptions     UserSubscription[]
+  folders       Folder[]
+  files         File[]
+  subscriptions UserSubscription[]
 
   @@unique([email])
   @@map("user")
