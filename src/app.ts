@@ -4,6 +4,7 @@ import { toNodeHandler } from "better-auth/node";
 import { subscriptionRoutes } from "./app/modules/subscription/subscription.routes";
 import { auth } from "./app/lib/auth";
 import { userSubscriptionRoutes } from "./app/modules/userSubscription/userSubscription.routes";
+import { folderRoutes } from "./app/modules/folder/folder.routes";
 
 const app = express();
 app.use(express.json());
@@ -41,6 +42,7 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use("/api/subscription", subscriptionRoutes);
 app.use("/api/userSubscription", userSubscriptionRoutes)
+app.use("/api/folders", folderRoutes);
 
 app.get("", (req : Request, res: Response)=>{
     res.send("Hello world!");
