@@ -1,0 +1,55 @@
+import { prisma } from "../../lib/prisma";
+
+const getAllUsers = async () => {
+  return prisma.user.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true,
+      role: true,
+      emailVerified: true,
+      createdAt: true,
+    },
+  });
+};
+
+const getUserDetails = async (userId: string) => {
+  if (!userId) {
+    throw new Error("User ID is required");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true,
+      role: true,
+      emailVerified: true,
+      createdAt: true,
+      updatedAt: true,
+
+      folders: true,
+      files: true,
+      subscriptions: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+};
+
+export const authServices = {
+  getAllUsers,
+  getUserDetails,
+};

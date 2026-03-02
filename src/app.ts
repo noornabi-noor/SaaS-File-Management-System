@@ -5,6 +5,7 @@ import { subscriptionRoutes } from "./app/modules/subscription/subscription.rout
 import { auth } from "./app/lib/auth";
 import { userSubscriptionRoutes } from "./app/modules/userSubscription/userSubscription.routes";
 import { folderRoutes } from "./app/modules/folder/folder.routes";
+import { authRoutes } from "./app/modules/auth/auth.routes";
 
 const app = express();
 app.use(express.json());
@@ -40,6 +41,7 @@ app.use(express.json());
 
 app.all("/api/auth/*splat", toNodeHandler(auth));
 
+app.use("/api/user", authRoutes);
 app.use("/api/subscription", subscriptionRoutes);
 app.use("/api/userSubscription", userSubscriptionRoutes)
 app.use("/api/folders", folderRoutes);
