@@ -7,6 +7,8 @@ import { userSubscriptionRoutes } from "./app/modules/userSubscription/userSubsc
 import { folderRoutes } from "./app/modules/folder/folder.routes";
 import { authRoutes } from "./app/modules/auth/auth.routes";
 import { fileRoutes } from "./app/modules/files/files.routes";
+import { notFound } from "./app/middleware/notFound";
+import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 
 const app = express();
 app.use(express.json());
@@ -51,5 +53,8 @@ app.use("/api/files", fileRoutes);
 app.get("", (req : Request, res: Response)=>{
     res.send("Hello world!");
 });
+
+app.use(globalErrorHandler);
+app.use(notFound);
 
 export default app;
