@@ -10,14 +10,14 @@ router.get(
   userSubscriptionController.getActivePackage
 );
 
-router.post(
-  "/select", protect(Role.USER),
-  userSubscriptionController.selectPackage
-);
-
 router.get(
   "/history", protect(Role.USER),
   userSubscriptionController.getSubscriptionHistory
+);
+
+router.post(
+  "/select", protect(Role.USER),
+  userSubscriptionController.selectPackage
 );
 
 export const userSubscriptionRoutes = router;

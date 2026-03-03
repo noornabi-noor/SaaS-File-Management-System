@@ -24,11 +24,7 @@ const getActivePackage = async (userId: string) => {
     include: { package: true },
   });
 
-  if (!subscription) {
-    throw new Error("No active subscription found");
-  }
-
-  return subscription.package;
+  return subscription?.package || null;
 };
 
 const getSubscriptionHistory = async (userId: string) => {

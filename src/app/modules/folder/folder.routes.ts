@@ -5,10 +5,13 @@ import { protect } from "../../middleware/auth";
 
 const router = Router();
 
-router.get("/:userId", protect(Role.USER), folderController.getUserFolders);
-router.get("/:id", protect(Role.USER), folderController.getSingleFolder);
-router.post("/", protect(Role.USER), folderController.createFolder);
-router.patch("/:id", protect(Role.USER), folderController.updateFolder);
-router.delete("/:id", protect(Role.USER), folderController.deleteFolder);
+router.use(protect(Role.USER));
+
+router.get("/", folderController.getUserFolders); 
+router.get("/:id", folderController.getSingleFolder); 
+
+router.post("/", folderController.createFolder);
+router.patch("/:id", folderController.updateFolder);
+router.delete("/:id", folderController.deleteFolder);
 
 export const folderRoutes = router;
