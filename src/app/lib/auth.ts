@@ -15,11 +15,12 @@ export const auth = betterAuth({
 
   session: {
     cookieCache: {
-      secure: true,
+      // secure: true,
+      secure: false,
       enabled: true,
       maxAge: 5 * 60, // 5 minutes
-      // sameSite: "lax",
-      sameSite: "none",
+      sameSite: "lax",
+      // sameSite: "none",
       httpOnly: true,
       path: "/",
     },
